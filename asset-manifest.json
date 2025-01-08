@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/nfs-react/static/css/main.e6c13ad2.css",
+    "main.js": "/nfs-react/static/js/main.fad84aaf.js",
+    "static/media/background.png": "/nfs-react/static/media/background.f6a3e15228841260f4c7.png",
+    "index.html": "/nfs-react/index.html",
+    "main.e6c13ad2.css.map": "/nfs-react/static/css/main.e6c13ad2.css.map",
+    "main.fad84aaf.js.map": "/nfs-react/static/js/main.fad84aaf.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.fad84aaf.js"
+  ]
+}
