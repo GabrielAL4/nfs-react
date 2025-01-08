@@ -1,0 +1,53 @@
+[
+    {
+      "codigo": "001",
+      "descricao": "Bota de Couro",
+      "ncm": "6404.20.00"
+    },
+    {
+      "codigo": "002",
+      "descricao": "Capa de Chuva",
+      "ncm": "3926.20.00"
+    },
+    {
+      "codigo": "003",
+      "descricao": "Óculos de Sol",
+      "ncm": "9004.10.00"
+    },
+    {
+      "codigo": "004",
+      "descricao": "Mochila",
+      "ncm": "4202.92.00"
+    },
+    {
+      "codigo": "005",
+      "descricao": "Relógio de Pulso",
+      "ncm": "9101.11.00"
+    },
+    {
+      "codigo": "006",
+      "descricao": "Tênis Esportivo",
+      "ncm": "6404.11.00"
+    },
+    {
+      "codigo": "007",
+      "descricao": "Jaqueta de Couro",
+      "ncm": "4201.00.10"
+    },
+    {
+      "codigo": "008",
+      "descricao": "Chapéu de Palha",
+      "ncm": "6504.00.10"
+    },
+    {
+      "codigo": "009",
+      "descricao": "Luvas de Proteção",
+      "ncm": "6216.00.00"
+    },
+    {
+      "codigo": "010",
+      "descricao": "Cinto de Segurança",
+      "ncm": "8708.21.00"
+    }
+  ]
+  
