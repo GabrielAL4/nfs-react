@@ -214,28 +214,28 @@ const styles = {
     fontFamily: "Open Sans, sans-serif",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "flex-start", // Alinha os itens ao topo
+    justifyContent: "flex-start", 
     alignItems: "center",
-    width: "100vw", // Largura total da janela
-    minHeight: "100vh", // Altura mínima da janela
+    width: "100vw", 
+    minHeight: "100vh", 
     color: "#ff722a",
-    margin: "0", // Remove margens
-    padding: "0", // Remove espaçamento interno
-    boxSizing: "border-box", // Garante que padding/margin não afetem largura/altura
-    backgroundImage: `url(${backgroundImage})`, // Fundo configurado com a imagem
+    margin: "0", 
+    padding: "0", 
+    boxSizing: "border-box", 
+    backgroundImage: `url(${backgroundImage})`, 
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
-    paddingBottom: "20px", // Garante que o fundo cubra o rodapé também
+    paddingBottom: "20px", 
   },
   header: {
     textAlign: "center",
     color: "#333",
-    marginTop: "20px", // Espaço superior para evitar corte
+    marginTop: "20px", 
   },
   card: {
-    width: "80%", // Largura do card como 80% da tela
-    maxWidth: "600px", // Largura máxima do card
+    width: "80%", 
+    maxWidth: "600px", 
     border: "1px solid #ddd",
     borderRadius: "8px",
     padding: "20px",
@@ -267,7 +267,7 @@ const styles = {
     border: "none",
     borderRadius: "4px",
     cursor: "pointer",
-    width: "100%", // Botão ocupa largura total
+    width: "100%", 
   },
   item: {
     padding: "5px 0",
@@ -281,8 +281,5 @@ const styles = {
     backgroundColor: "#f9f9f9",
   },
 };
-
-
-
 
 export default App;
