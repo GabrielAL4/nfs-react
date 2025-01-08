@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import backgroundImage from "./images/background.png";
 
 function App() {
   const [produtos, setProdutos] = useState([]);
@@ -8,7 +9,7 @@ function App() {
   const [itens, setItens] = useState([]);
   const [notaFiscal, setNotaFiscal] = useState(null);
 
-  const [irpf, setIrpf] = useState(5); 
+  const [irpf, setIrpf] = useState(5);
   const [pis, setPis] = useState(1.65);
   const [cofins, setCofins] = useState(7.6);
   const [ISS, setISS] = useState(5);
@@ -53,10 +54,18 @@ function App() {
     setQuantidade(1);
     setValorUnitario(0);
   };
+  
+  const gerarNumeroNotaFiscal = () => {
+    return Math.floor(100000000 + Math.random() * 900000000); // Gera um número aleatório de 9 dígitos
+  };
 
+  const gerarSerieNotaFiscal = () => {
+    return Math.floor(100 + Math.random() * 900); // Gera um número aleatório de 9 dígitos
+  };
+  
   const calcularNotaFiscal = () => {
     const valorTotal = itens.reduce((acc, item) => acc + item.total, 0);
-
+  
     const calculos = {
       irpf: (valorTotal * irpf) / 100,
       pis: (valorTotal * pis) / 100,
@@ -64,17 +73,24 @@ function App() {
       ISS: (valorTotal * ISS) / 100,
       issqn: (valorTotal * issqn) / 100
     };
-
+  
     const totalImpostos =
       calculos.irpf + calculos.pis + calculos.cofins + calculos.ISS + calculos.issqn;
+  
+    const numeroNotaFiscal = gerarNumeroNotaFiscal(); 
 
+    const serieNotaFiscal = gerarSerieNotaFiscal(); 
+  
     setNotaFiscal({
+      numeroNotaFiscal,
+      serieNotaFiscal,
       valorTotal,
       impostos: calculos,
       totalImpostos,
       valorFinal: valorTotal + totalImpostos
     });
   };
+  
 
   return (
     <div style={styles.container}>
@@ -124,7 +140,7 @@ function App() {
         <ul>
           {itens.map((item, index) => (
             <li key={index} style={styles.item}>
-              {item.descricao} - Quantidade: {item.quantidade}, Valor Unitário: {" "}
+              {item.descricao} - Quantidade: {item.quantidade}, Valor Unitário:{" "}
               {item.valorUnitario.toFixed(2)}, Total: {item.total.toFixed(2)}
             </li>
           ))}
@@ -132,56 +148,38 @@ function App() {
       </div>
       <div style={styles.card}>
         <h2>Configuração de Impostos</h2>
-        <div style={styles.inputGroup}>
-          <label>IRPF (%):</label>
-          <input
-            type="number"
-            value={irpf}
-            onChange={(e) => setIrpf(Number(e.target.value))}
-            min="0"
-            style={styles.input}
-          />
-        </div>
-        <div style={styles.inputGroup}>
-          <label>PIS (%):</label>
-          <input
-            type="number"
-            value={pis}
-            onChange={(e) => setPis(Number(e.target.value))}
-            min="0"
-            style={styles.input}
-          />
-        </div>
-        <div style={styles.inputGroup}>
-          <label>COFINS (%):</label>
-          <input
-            type="number"
-            value={cofins}
-            onChange={(e) => setCofins(Number(e.target.value))}
-            min="0"
-            style={styles.input}
-          />
-        </div>
-        <div style={styles.inputGroup}>
-          <label>ISS (%):</label>
-          <input
-            type="number"
-            value={ISS}
-            onChange={(e) => setISS(Number(e.target.value))}
-            min="0"
-            style={styles.input}
-          />
-        </div>
-        <div style={styles.inputGroup}>
-          <label>ISSQN (%):</label>
-          <input
-            type="number"
-            value={issqn}
-            onChange={(e) => setIssqn(Number(e.target.value))}
-            min="0"
-            style={styles.input}
-          />
-        </div>
+        {["IRPF", "PIS", "COFINS", "ISS", "ISSQN"].map((tax, i) => (
+          <div style={styles.inputGroup} key={i}>
+            <label>{tax} (%):</label>
+            <input
+              type="number"
+              value={
+                tax === "IRPF"
+                  ? irpf
+                  : tax === "PIS"
+                  ? pis
+                  : tax === "COFINS"
+                  ? cofins
+                  : tax === "ISS"
+                  ? ISS
+                  : issqn
+              }
+              onChange={(e) =>
+                tax === "IRPF"
+                  ? setIrpf(Number(e.target.value))
+                  : tax === "PIS"
+                  ? setPis(Number(e.target.value))
+                  : tax === "COFINS"
+                  ? setCofins(Number(e.target.value))
+                  : tax === "ISS"
+                  ? setISS(Number(e.target.value))
+                  : setIssqn(Number(e.target.value))
+              }
+              min="0"
+              style={styles.input}
+            />
+          </div>
+        ))}
       </div>
 
       <div style={styles.card}>
@@ -191,7 +189,11 @@ function App() {
         </button>
         {notaFiscal && (
           <div style={styles.notaFiscal}>
-            <h3>Nota Fiscal</h3>
+            <h3>
+              Nota Fiscal: {notaFiscal.numeroNotaFiscal}
+              <br/> 
+              Serie: {notaFiscal.serieNotaFiscal}
+            </h3>
             <p>Valor Total (Produtos): R$ {notaFiscal.valorTotal.toFixed(2)}</p>
             <p>IRPF: R$ {notaFiscal.impostos.irpf.toFixed(2)}</p>
             <p>PIS: R$ {notaFiscal.impostos.pis.toFixed(2)}</p>
@@ -210,37 +212,53 @@ function App() {
 const styles = {
   container: {
     fontFamily: "Open Sans, sans-serif",
-    maxWidth: "800px",
-    margin: "0 auto",
-    padding: "20px",
-    color: "#333"
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start", // Alinha os itens ao topo
+    alignItems: "center",
+    width: "100vw", // Largura total da janela
+    minHeight: "100vh", // Altura mínima da janela
+    color: "#ff722a",
+    margin: "0", // Remove margens
+    padding: "0", // Remove espaçamento interno
+    boxSizing: "border-box", // Garante que padding/margin não afetem largura/altura
+    backgroundImage: `url(${backgroundImage})`, // Fundo configurado com a imagem
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    paddingBottom: "20px", // Garante que o fundo cubra o rodapé também
   },
   header: {
     textAlign: "center",
-    color: "#ff722a"
+    color: "#333",
+    marginTop: "20px", // Espaço superior para evitar corte
   },
   card: {
+    width: "80%", // Largura do card como 80% da tela
+    maxWidth: "600px", // Largura máxima do card
     border: "1px solid #ddd",
     borderRadius: "8px",
     padding: "20px",
     margin: "20px 0",
-    boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
+    boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+    backgroundColor: "white",
+    opacity: 0.95,
   },
   select: {
     width: "100%",
     padding: "8px",
     margin: "10px 0",
     borderRadius: "4px",
-    border: "1px solid #ddd"
+    border: "1px solid #ddd",
   },
   inputGroup: {
-    margin: "10px 0"
+    margin: "10px 0",
   },
   input: {
     width: "100%",
     padding: "8px",
     borderRadius: "4px",
-    border: "1px solid #ddd"
+    border: "1px solid #ddd",
   },
   button: {
     padding: "10px 20px",
@@ -248,19 +266,23 @@ const styles = {
     color: "white",
     border: "none",
     borderRadius: "4px",
-    cursor: "pointer"
+    cursor: "pointer",
+    width: "100%", // Botão ocupa largura total
   },
   item: {
     padding: "5px 0",
-    borderBottom: "1px solid #ddd"
+    borderBottom: "1px solid #ddd",
   },
   notaFiscal: {
     marginTop: "20px",
     padding: "10px",
     border: "1px solid #ff722a",
     borderRadius: "8px",
-    backgroundColor: "#f9f9f9"
-  }
+    backgroundColor: "#f9f9f9",
+  },
 };
+
+
+
 
 export default App;
