@@ -26,3 +26,6 @@ Você pode acessar a aplicação hospedada no GitHub Pages [aqui](https://gabrie
 2. Abra a pasta do Projeto e use o comando
    ```bash
    npm start
+3. Apenas abra o navegador e use os endereços de local host na porta 3000
+   http://localhost:3000/nfs-react
+   http://127.0.0.1:3000/nfs-react
