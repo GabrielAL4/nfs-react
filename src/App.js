@@ -8,16 +8,16 @@ function App() {
   const [valorUnitario, setValorUnitario] = useState(0);
   const [itens, setItens] = useState([]);
   const [notaFiscal, setNotaFiscal] = useState(null);
-  const [tipoNota, setTipoNota] = useState("nfe"); // "nfe" or "nfse"
+  const [tipoNota, setTipoNota] = useState("nfe"); 
   const [nomeServico, setNomeServico] = useState("");
 
   const [irrf, setIrrf] = useState(5);
   const [pis, setPis] = useState(1.65);
   const [cofins, setCofins] = useState(7.6);
-  const [inss, setInss] = useState(7.5); // Valor inicial para o INSS
+  const [inss, setInss] = useState(7.5); 
   const [issqn, setIssqn] = useState(2);
   const [csll, setCsll] = useState(9);
-  const [icms, setIcms] = useState(7); // Valor inicial para o INSS
+  const [icms, setIcms] = useState(7); 
   const [ipi, setIpi] = useState(6);
   const [fcp, setFcp] = useState(2);
 
@@ -85,17 +85,17 @@ function App() {
   
 
   const gerarNumeroNotaFiscal = () => {
-    return Math.floor(100000000 + Math.random() * 900000000); // Gera um número aleatório de 9 dígitos
+    return Math.floor(100000000 + Math.random() * 900000000); 
   };
 
   const gerarSerieNotaFiscal = () => {
-    return Math.floor(100 + Math.random() * 900); // Gera um número aleatório de 3 dígitos
+    return Math.floor(100 + Math.random() * 900); 
   };
 
   const calcularNotaFiscal = () => {
     const valorTotal = itens.reduce((acc, item) => acc + item.total, 0);
 
-    // Garante valores numéricos padrão
+    
     const impostosValidos = {
         irrf: irrf || 0,
         pis: pis || 0,
@@ -275,7 +275,7 @@ function App() {
                           ? setIcms(Number(e.target.value))
                           : tax === "IPI"
                             ? setIpi(Number(e.target.value))
-                            : setFcp(Number(e.target.value)) // Para FCP
+                            : setFcp(Number(e.target.value)) 
                 }
                 min="0"
                 style={styles.input}
@@ -314,7 +314,7 @@ function App() {
                           ? setIrrf(value)
                           : tax === "csll"
                             ? setCsll(value)
-                            : setInss(value); // Default for INSS
+                            : setInss(value);
                 }}
                 min="0"
                 style={styles.input}
